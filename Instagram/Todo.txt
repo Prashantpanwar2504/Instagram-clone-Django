@@ -85,4 +85,7 @@ Day 6: Creating Signout View for the user.
     4. create a signout view in the authentication application.
     5. define a action int he feed.html for sending request to the signout view
             "<form method="post", action="{% url 'signout_view' %}">"
-    6. hello world
+    6. create a post method in the SignoutView
+    7. import logout method and call the logout method on user,
+    8. redirect the page to signin View.
+    9. Now on Day 6 SignIn, SignOut and SignUp Features are working properly.
