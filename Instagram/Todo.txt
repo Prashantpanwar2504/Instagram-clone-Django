@@ -1,0 +1,88 @@
+Day 1: Created django project
+    1. Created application name authentication,
+    2. Created application name core,
+    3. Created application name common,
+    4. Created application name user,
+    5. Created a  urls.py in the authentication application,
+    6. Register the authentication urls to our project urls.py
+        "path('', include('authentication.urls'))".
+    7. Registered application in the apps.py file of authentication application,
+    8. Created two View name SigninView and SignoutView,
+
+Day 2: Create the Model for the user in user application the project
+    1. import AbstractUser from "from django.contrib.auth.models import AbstractUser",
+    2. import CustomManager for user from "from user.managers import CustomUserManager",
+    3. create a User class and inherit the AbstractUser class,
+    4. create field for the user like "picture", "full_name", "email", "first_name", "last_name",
+    5. create a setting for the username which will help to user login,
+        # which field will be use for username we can use either email or username.
+        # if we not provide the USERNAME_FIELD it will take "username" by default
+        USERNAME_FIELD = 'email'
+        REQUIRED_FIELDS = ['full_name', ]
+    6. create a object of custom user
+        # Accessing Custom User Manager,we define this CustomUserManager in managers.py file into user app.
+        objects = CustomUserManager()
+    7. create a form.py file in authentication application in our project,
+    8. create field in the form "'full_name', 'email', 'username', 'password1', 'password2'",
+    9. create a functionality of SigninView and SignoutView in the view.py file of authentication application of our project.
+
+
+Day 3: Sign In Page.
+    1. create a url in url.py,
+    2. import view form view.py,
+    3. create a class based view SignInView in views.py file,
+    4. create a template name,
+    5. created a get method,
+    6. created a post method.
+
+Day 4: Created sign_in.html.
+    1. copy the code of sign_in.html,
+    2. copy the images for sign_in page,
+    3. creating authentication function,
+    4. import authentication function from django.contrib.auth import authenticate,
+    5. created two field with same name as email & password,
+    6. pass then to authentication function in post function under SignIn View function,
+    7. if user is not present in the DB then Authentication function will return none,
+    8. if user is present then import login,  we have to log in the user,
+    9. from django.contrib.auth import authenticate, login,
+    10. call the login function and redirect to 'home_feed' view.
+    11. create a 'home_feed' view in core app, cuz after login core application will take care of instagram functionality,
+    12. create urls.py in the core application,
+    13. create new url in urls.py,
+    14. now create a new view in core application,
+    15. create template in core application,
+    16. create a Class Based View HomeView,
+    17. template_name = 'core/feed.html'.
+
+
+"If we want that not one can access the functionality without login this feature will help you to do that."
+Day 5: Functionality only logged in user can access the feed.html file.
+    1. import a login decorator in urls.py file of core app from django.contrib.auth.decorator,
+    2. call this function in path url,
+        'login_required(HomeView.as_view())',
+    3. open settings.py file and at the end create a setting named " LOGIN_URL = 'signin_view' "
+        it will render the request to signin page, if user is not logged in and try to access feed.
+    4. redirect the signup page to signin,
+    5. redirect the signin page to homefeed,
+    6. Signin and Signout feature working perfectly.
+    7. now there is a flow if we go to the Home page we will get to the Signin page, but this is
+        not what we want.
+    8. To get rid of this problem go to the views.py file of authentication application,
+        in the SigninView class in get method,
+        we will check before render the template_name,
+        if the user is already authenticated then we will not,
+        render the user to the template_name = "SigninView" or homepage,
+        we will send the user to the homefeed.
+    9. Do same for the SignoutView in the authentication application,
+        cus we don't want that if the user is already loggedin so he will redirect to signout page.
+
+Day 6: Creating Signout View for the user.
+    1. creating the signout button  in the feed.html
+        Note: never do the signout with the get request methos that is the worst practice
+        do with the post request.
+    2. Post request in the html is done with the help of form.
+    3. Created a new url for Signout the user in the authentication application,
+    4. create a signout view in the authentication application.
+    5. define a action int he feed.html for sending request to the signout view
+            "<form method="post", action="{% url 'signout_view' %}">"
+    6.

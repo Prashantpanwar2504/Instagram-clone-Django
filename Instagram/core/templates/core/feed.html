@@ -1,0 +1,15 @@
+{% extends 'authentication/base.html' %}
+
+
+{% block content %}
+
+<center>
+    <h1>Home page</h1>
+    <h2>Logged in</h2>
+    <form method="post", action="{% url 'signout_view' %}">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit" >Log out</button>
+    </form>
+</center>
+
+{% endblock %}
