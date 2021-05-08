@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from authentication.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 
 
 # Create your views here
@@ -63,3 +64,11 @@ class SignOutView(View):
         logout(request)
         # Redirect to a success page.
         return redirect('signin_view')
+
+
+class PRView(PasswordResetView):
+    template_name = 'authentication/password_reset.html'
+
+
+class PRConfirmView(PasswordResetConfirmView):
+    template_name = 'authentication/password_reset_confirm.html'

@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'styles/signin.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/authentication/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/authentication/signin.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -46,7 +46,7 @@
                             <a class="login__fb__text text-decoration-none" href="">Log in with Facebook</a>
                         </div>
                         <div class="mb-4">
-                            <a class="forogt__password text-decoration-none" href="">Forgot password?</a>
+                            <a class="forogt__password text-decoration-none" href="{% url 'password_reset' %}">Forgot password?</a>
                         </div>
                     </div>
                 </div>

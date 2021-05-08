@@ -89,3 +89,22 @@ Day 6: Creating Signout View for the user.
     7. import logout method and call the logout method on user,
     8. redirect the page to signin View.
     9. Now on Day 6 SignIn, SignOut and SignUp Features are working properly.
+
+Day 7: User password Reset using email.
+    1. Four step to follow.
+        a. PasswordResetView: Ask for the Email,
+        b. PasswordResetDoneView: Show him Succeed email message,
+        c. PasswordResetConfirmView: Ask to set a new password,
+        d. PasswordResetCompleteView: Successfully Reset your password,
+    2. Create a new url to pass for the password reset page in the authentication application in out project,
+    3. create new url in auth app for show him succeed email message,
+    4. create new url in auth app for confirming,
+    5. create new url in auth app for completing the process and redirect to signin page,
+    6. Creating the Templates for all four view.
+    7. creating the view for PasswordRestView to ask for thr Email as name of PRView,
+    8. Import PasswordResetView form django.config.auth.views import PasswordResetView
+    9. Import PasswordResetConfirmView form django.config.auth.views import PasswordResetView
+    10. create a view for confirming the email with the name 'PRConfirmView'
+    11. pass a keyword argument to the PRConfirmView url,
+    12.
+
