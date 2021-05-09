@@ -5,7 +5,9 @@ from authentication.views import (
     SignUpView,
     SignOutView,
     PRView,
+    PRDoneView,
     PRConfirmView,
+    PRCompleteView,
     )
 
 urlpatterns = [
@@ -13,8 +15,8 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup_view'),
     path('signout/', SignOutView.as_view(), name='signout_view'),
     path('password/reset/', PRView.as_view(), name='password_reset'),
-    #path('password/reset/done/', name='password_reset_done'),
+    path('password/reset/done/',PRDoneView.as_view(), name='password_reset_done'),
     path('password/reset/confirm/<uidb64>/<token>',PRConfirmView.as_view(), name='password_reset_confirm'),
-    #path('password/reset/complete', name='password_reset_complete'),
+    path('password/reset/complete',PRCompleteView.as_view(), name='password_reset_complete'),
 
 ]

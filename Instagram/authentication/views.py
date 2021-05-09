@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from authentication.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 
 
 # Create your views here
@@ -70,5 +71,13 @@ class PRView(PasswordResetView):
     template_name = 'authentication/password_reset.html'
 
 
+class PRDoneView(PasswordResetDoneView):
+    template_name = 'authentication/password_reset_done.html'
+
+
 class PRConfirmView(PasswordResetConfirmView):
     template_name = 'authentication/password_reset_confirm.html'
+
+
+class PRCompleteView(PasswordResetCompleteView):
+    template_name = 'authentication/password_reset_complete.html'

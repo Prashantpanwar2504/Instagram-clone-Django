@@ -106,5 +106,50 @@ Day 7: User password Reset using email.
     9. Import PasswordResetConfirmView form django.config.auth.views import PasswordResetView
     10. create a view for confirming the email with the name 'PRConfirmView'
     11. pass a keyword argument to the PRConfirmView url,
-    12.
+
+Day 8: ConnectionRefusedError at /password/reset/- error and out the handle it.
+    we don't define the configuration for the email, we can send email with the help of Django framework.
+    first we have to define the configuration for the email.
+    1. Open the settings.py file and define the setting for the email,
+    2. first setting 'EMAIL_PORT' for email and gmail we use port '587'
+    3. second setting 'EMAIL_USE_TLs' = True, this use for encryption of the message stands for the transport
+    Layer Security, which work same like SSL with with some extra functionality
+    4. third setting 'EMAIL_HOST' = 'smtp.gmail.com', hosting services we want to use for the email.
+    5. fourth setting 'EMAIL_HOST_USER' = 'admin ka mail_id', kiske email se email send karna chahate ho,
+    6. 5th setting 'EMAIL_HOST_PASSWORD' = '', Kuch be rakhna but apna gmail ka real password mat rakhna
+    we have to remember two things,
+    7. Error: Authentication Required
+        [
+        SMTPSenderRefused at /password/reset/
+            (530, b'5.7.0 Authentication Required.
+            Learn more at\n5.7.0  https://support.google.com/mail/?p=WantAuthError t1sm8537145pjo.33 - gsmtp',
+            'webmaster@localhost')
+        ]
+        pass render password to check further.
+    8. Username & Password does't Match.
+        [
+        SMTPAuthenticationError at /password/reset/
+        (535, b'5.7.8 Username and Password not accepted.
+        Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials 145sm8735313pfv.196 - gsmtp'
+        ]
+
+        gmail can give us this type of error through smtp library.
+    9.  if we want to test email sending link feature,
+    10. create a new setting for email_backend,
+    11. create a new setting for email_file called EMAIL_FILE_PATH,
+    12. now create a new url for the password_reset_done_view,
+    13. create a new view name with PRDoneView,
+    14. import PasswordResetDoneView from django.contrib.auth.views,
+    15. restart the server.
+    16. Everything will be work fine but, after getting the link in the file when we go to the that link
+        and when we type the new password we will get the new error
+    17. Reverse for 'password_reset_complete' not found.
+        [
+        NoReverseMatch at /password/reset/confirm/MTM/set-password
+        Reverse for 'password_reset_complete' not found. 'password_reset_complete' i
+        s not a valid view function or pattern name.
+        ]
+    18. create a new url for password_reset_complete
+    19. create a new view for password_reset_complete_view.
+    20.
 
