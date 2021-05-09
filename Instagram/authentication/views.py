@@ -81,3 +81,5 @@ class PRConfirmView(PasswordResetConfirmView):
 
 class PRCompleteView(PasswordResetCompleteView):
     template_name = 'authentication/password_reset_complete.html'
+
+

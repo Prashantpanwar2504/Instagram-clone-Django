@@ -18,5 +18,6 @@ urlpatterns = [
     path('password/reset/done/',PRDoneView.as_view(), name='password_reset_done'),
     path('password/reset/confirm/<uidb64>/<token>',PRConfirmView.as_view(), name='password_reset_confirm'),
     path('password/reset/complete',PRCompleteView.as_view(), name='password_reset_complete'),
+    #view working fine
 
 ]

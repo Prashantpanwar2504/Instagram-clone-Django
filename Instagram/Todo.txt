@@ -151,5 +151,5 @@ Day 8: ConnectionRefusedError at /password/reset/- error and out the handle it.
         ]
     18. create a new url for password_reset_complete
     19. create a new view for password_reset_complete_view.
-    20.
+    20. hello
 
