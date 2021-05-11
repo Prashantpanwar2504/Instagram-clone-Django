@@ -151,5 +151,38 @@ Day 8: ConnectionRefusedError at /password/reset/- error and out the handle it.
         ]
     18. create a new url for password_reset_complete
     19. create a new view for password_reset_complete_view.
-    20. hello
+    20. Every thing is working properly but we are getting email in file.
+        every email link will work only one time second time it will become invalid or expire.
+    21. if we don't want to create all the views for password reset in the views.py file.
+    22. we can call directly view in thr urls.py file by importing all thr password reset view.
+    23. Import all the view for password reset view
+        from django.contrib.auth.views import (PasswordResetView,
+                                       PasswordResetDoneView,
+                                       PasswordResetConfirmView,
+                                       PasswordResetCompleteView
+                                       )
+    24. update the urls.
+        we can use keyword argument to call templates.
+    25. in the use call PasswordResetView.as_view(),
+    26. pass template_name in the as_view(), as a Keyworded argument
+        path('password/reset/', PasswordResetView.as_view(
+        template_name='authentication/password_reset.html',
+        email_template_name='authentication/password_reset_email.html'
+        )
+    27. remove all the class based views from the views.py file.
+    28. restart your server and all thing will word properly.
+        we don't need to create the class ofr the password reset views we can do this instead.
 
+Day 9: Login via Username/Email
+    1. go to signin template and check for the type fof the input field
+    2. Goto email field and change the type of field from email to text cuz we want to login by email and username both.
+    3. go to the views.py file and update the email field with "email_username = request.POST.get('email_username')"
+    but in the models.py of user we create USERNAME_FIELD = 'email'
+    4. at the end we have to login by email so we need the email of the user although we provide the username.
+    5. in the views.py file we can do one thing, we can find the object of user with the help of email_username field and them we can get
+    6. import user model in the views.py file from get_user_model
+    7. the email of that user with the help if '.'
+        user_object = User.objects.get(username = email_username)
+    8. getting the email from the user object
+        email = user_object.email
+    9.

@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from authentication.forms import UserForm
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
-    PasswordResetCompleteView
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
 
 # Create your views here
@@ -21,13 +19,24 @@ class SignInView(View):
 
     def post(self, request, *args, **kwargs):
         # user login logic
-        email = request.POST.get('email')
+        email_username = request.POST.get('email_username')
         password = request.POST.get('password')
 
         # what it will do it will get request, email and password and
         # check if user is authenticated or in the Database
         # so it return the object of that user we provide the email and password of, to us.
         # if user is not present in the DB then Authentication function will return none
+
+        # case 1: when user provide username instead of email
+        # if user provide the username instead of email, we need to fine the email of the user.
+        # How to do that.
+        # we can do one thing, we can find the object of user with the help of email_username field and them we can get
+        # the email of that user with the help if '.'
+        User = get_user_model()
+        user_object = User.objects.get(username = email_username)
+        # getting the email from the user object
+        email = user_object.email
+
         user = authenticate(request, email=email, password=password)
 
         if user is None:
@@ -67,19 +76,18 @@ class SignOutView(View):
         return redirect('signin_view')
 
 
-class PRView(PasswordResetView):
-    template_name = 'authentication/password_reset.html'
-
-
-class PRDoneView(PasswordResetDoneView):
-    template_name = 'authentication/password_reset_done.html'
-
-
-class PRConfirmView(PasswordResetConfirmView):
-    template_name = 'authentication/password_reset_confirm.html'
-
-
-class PRCompleteView(PasswordResetCompleteView):
-    template_name = 'authentication/password_reset_complete.html'
-
-
+# class PRView(PasswordResetView):
+#     email_template_name = 'authentication/password_reset_email.html'
+#     template_name = 'authentication/password_reset.html'
+#
+#
+# class PRDoneView(PasswordResetDoneView):
+#     template_name = 'authentication/password_reset_done.html'
+#
+#
+# class PRConfirmView(PasswordResetConfirmView):
+#     template_name = 'authentication/password_reset_confirm.html'
+#
+#
+# class PRCompleteView(PasswordResetCompleteView):
+#     template_name = 'authentication/password_reset_complete.html'

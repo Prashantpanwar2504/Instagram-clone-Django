@@ -18,7 +18,7 @@ class User(AbstractUser):
     # which field will be use for username we can use either email or username.
     # if we not provide the USERNAME_FIELD it will take "username" by default
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name', ]
+    REQUIRED_FIELDS = ['full_name',]
 
     # Accessing Custom User Manager,we define this CustomUserManager in managers.py file into user app.
     objects = CustomUserManager()
