@@ -201,4 +201,21 @@ Day 10: Login by Email.
             print(e)
             email = email_username  #
     4. restart the server now user cna login by both username as well as email
+    5. now in the real instagram if we provide the wrong username/email and password then we got the error.
+        "Sorry, your password was incorrect. Please double-check your password"
+    6. we can pass the message if the username/email/password are incorrect.
+        "if user is None:
+            return render(request, self.template_name, context={
+                'message': "Sorry, your username or password was incorrect. Please double-check your username or password"})
+        "
+    7. now in the signin.html template we have to show that message when the email or username or password are incorrect.
+    " {% if messages %}
+           <div class="alert alert-danger" role='alert'>
+                   {{ messages }}
+           </div>
+      {% endif %}
+    "
+    8. but this is not the efficient way. we have the different way to do this efficiently.
+    9. sending through context is good but not efficient.
+    10.
 

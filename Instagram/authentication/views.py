@@ -35,7 +35,7 @@ class SignInView(View):
         User = get_user_model()
 
         try:
-            user_object = User.objects.get(username=email_username) # username case
+            user_object = User.objects.get(username=email_username)  # username case
             # getting the email from the user object
             email = user_object.email
         except Exception as e:
@@ -49,9 +49,10 @@ class SignInView(View):
         user = authenticate(request, email=email, password=password)
 
         if user is None:
-            return render(request, self.template_name)
+            return render(request, self.template_name, context={
+                'messages': "Invalid Username or Password."})
+
         login(request, user)
-        print(user)
 
         return redirect('home_feed')
 
