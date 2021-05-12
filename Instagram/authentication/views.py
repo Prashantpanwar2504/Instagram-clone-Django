@@ -33,9 +33,18 @@ class SignInView(View):
         # we can do one thing, we can find the object of user with the help of email_username field and them we can get
         # the email of that user with the help if '.'
         User = get_user_model()
-        user_object = User.objects.get(username = email_username)
-        # getting the email from the user object
-        email = user_object.email
+
+        try:
+            user_object = User.objects.get(username=email_username) # username case
+            # getting the email from the user object
+            email = user_object.email
+        except Exception as e:
+            # case 2: when user provide email instead of username
+            # making email_username, email cuz user provide email in the email_username field.
+            print(e)
+            email = email_username  # email case
+
+        # case 2: when user provide email instead of username
 
         user = authenticate(request, email=email, password=password)
 
@@ -74,7 +83,6 @@ class SignOutView(View):
         logout(request)
         # Redirect to a success page.
         return redirect('signin_view')
-
 
 # class PRView(PasswordResetView):
 #     email_template_name = 'authentication/password_reset_email.html'

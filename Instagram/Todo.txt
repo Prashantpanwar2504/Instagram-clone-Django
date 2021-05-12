@@ -173,7 +173,7 @@ Day 8: ConnectionRefusedError at /password/reset/- error and out the handle it.
     28. restart your server and all thing will word properly.
         we don't need to create the class ofr the password reset views we can do this instead.
 
-Day 9: Login via Username/Email
+Day 9: Login via Username.
     1. go to signin template and check for the type fof the input field
     2. Goto email field and change the type of field from email to text cuz we want to login by email and username both.
     3. go to the views.py file and update the email field with "email_username = request.POST.get('email_username')"
@@ -185,4 +185,20 @@ Day 9: Login via Username/Email
         user_object = User.objects.get(username = email_username)
     8. getting the email from the user object
         email = user_object.email
-    9.
+    9. restart the server and authentication will word for username.
+
+Day 10: Login by Email.
+    1. when thw login is working for the username, so if we trying to login by email it will raise an error
+    "DoesNotExist at /
+        User matching query does not exist."
+        cuz we write code for the username login feature.
+    2. To get rid of this error we can use try and catch block.
+    3. put the username login code in the try block cuz this is the code which is raising the error
+        "try:
+            user_object = User.objects.get(username=email_username)
+            email = user_object.email
+        except Exception as e:
+            print(e)
+            email = email_username  #
+    4. restart the server now user cna login by both username as well as email
+
