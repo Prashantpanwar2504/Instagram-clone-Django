@@ -217,5 +217,25 @@ Day 10: Login by Email.
     "
     8. but this is not the efficient way. we have the different way to do this efficiently.
     9. sending through context is good but not efficient.
-    10.
 
+Day 11: Messages framework in Django.
+    1. we have the messages framework in django through which  we can send message when we redirect or render from one page
+        to another page.
+    2. first we have to check in the settings.py file that our installed app list have the the application
+        'django.contrib.messages'
+    3. then check for the Middleware in the settings.py file that present in the list,
+        'django.contrib.messages.middleware.MessageMiddleware'
+        Note: if both the app and middleware not present in the settings.py file then add them.
+    4. go to views.py file pf authentication application
+        and import messages
+    5. add messages in the signin view if the user is none.
+    6. now in the signin template check if there is a messages, if there is a message then we need to loop over it, cuz
+        django provide addmessages method by which we can add as many messages as we want.
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role='alert'>
+                         {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+    7. save the changes and username and password incorrect error working correctly.

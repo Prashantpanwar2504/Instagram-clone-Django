@@ -20,9 +20,11 @@
                     <div class="signin">
                         <div class="signin__form mb-3">
                             {% if messages %}
-                                <div class="alert alert-danger" role='alert'>
-                                    {{ messages }}
-                                </div>
+                                {% for message in messages %}
+                                    <div class="alert alert-danger" role='alert'>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
                             {% endif %}
                             <form method="POST">
                                 {% csrf_token %}

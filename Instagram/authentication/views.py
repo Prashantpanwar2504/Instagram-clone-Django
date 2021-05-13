@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from authentication.forms import UserForm
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib import messages
+from django.contrib.auth import (authenticate,
+                                 login,
+                                 logout,
+                                 get_user_model)
 
 
 # Create your views here
@@ -49,8 +53,10 @@ class SignInView(View):
         user = authenticate(request, email=email, password=password)
 
         if user is None:
-            return render(request, self.template_name, context={
-                'messages': "Invalid Username or Password."})
+            messages.error(request, "Invalid username or password.")
+            return render(request, self.template_name, #context={
+                #'messages': "Invalid Username or Password."}
+                          )
 
         login(request, user)
 
