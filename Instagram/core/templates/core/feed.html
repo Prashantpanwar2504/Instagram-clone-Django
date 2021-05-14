@@ -5,7 +5,17 @@
 
 <center>
     <h1>Home page</h1>
+    <h2>
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role='alert'>
+                         {{ message }}
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </h2>
     <h2>Logged in</h2>
+
     <form method="post", action="{% url 'signout_view' %}">
         {% csrf_token %}
         <button class="btn btn-danger" type="submit" >Log out</button>

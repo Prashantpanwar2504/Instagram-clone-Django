@@ -230,7 +230,7 @@ Day 11: Messages framework in Django.
         and import messages
     5. add messages in the signin view if the user is none.
     6. now in the signin template check if there is a messages, if there is a message then we need to loop over it, cuz
-        django provide addmessages method by which we can add as many messages as we want.
+        django provide add messages method by which we can add as many messages as we want.
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-danger" role='alert'>
@@ -239,3 +239,22 @@ Day 11: Messages framework in Django.
                 {% endfor %}
             {% endif %}
     7. save the changes and username and password incorrect error working correctly.
+    8. if we want to show message after login, then goto ur feed.html file in the core application
+    9. create a message for login successfully.
+        "login(request, user)
+        messages.success(request, "Login Successfully, Welcome to Instagram Clone.")
+        return redirect('home_feed')"
+    10. copy the same code in the feed.html which we used for signin.html
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role='alert'>
+                         {{ message }}
+                    </div>
+                {% endfor %}
+        {% endif %}
+
+        Note: message does not show on the page it show only when page redirect.
+        that's why when we login only then we can see the login Successfully message on the
+        screen, and when we refresh the same page the message will automatically vanish.
+
+Day 12:

@@ -53,13 +53,13 @@ class SignInView(View):
         user = authenticate(request, email=email, password=password)
 
         if user is None:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Invalid username or password.", extra_tags="error")
             return render(request, self.template_name, #context={
                 #'messages': "Invalid Username or Password."}
                           )
 
         login(request, user)
-
+        messages.success(request, "Login Successfully, Welcome to Instagram Clone.", extra_tags="success")
         return redirect('home_feed')
 
 
