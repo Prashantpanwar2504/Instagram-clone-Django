@@ -256,5 +256,49 @@ Day 11: Messages framework in Django.
         Note: message does not show on the page it show only when page redirect.
         that's why when we login only then we can see the login Successfully message on the
         screen, and when we refresh the same page the message will automatically vanish.
+    11. some extra work to ask for username in superuser creation. you can see in the Best Practice exercise notes.
 
-Day 12:
+Day 12: ModelAdmin register user model in the admin site.
+    1. goto admin.py of user application and register the user model,
+    2. but we created a custom user so we need to create a ModelAdmin to register the user model.
+    3. first we need to import the UserAdmin from django.contrib.auth.admin
+    4. create a class for CustomUserAdmin
+    5. import UserForm from the authentication application and add the form in add_form = "UserForm"
+    6. import CustomUserChangeForm form the authentication application and add the form in "form = UserChangeForm"
+    7. Create a CustomUserChangeForm in the Form.py file of authentication application.
+    8. import the UserChangeForm in form.py of Authentication app
+    "from django.contrib.auth.forms import UserChangeForm"
+    9. CustomUserChangeForm.
+    "class CustomUserChangeForm(UserChangeForm):
+        class Meta:
+            model = get_user_model()
+            fields = {'full_name', 'email', 'username',}"
+    10. Admins.py file of user application
+        "class CustomUserAdmin(UserAdmin):
+            # this add_form comes from this UserAdmin
+            # now we need to tell the name of the form we want to user
+            add_form = UserForm
+            # create a form
+            form = CustomUserChangeForm"
+    11. Now we need to tell the name of the model for which we created the CustomUserChangeForm
+        "model = User"
+    12. Now Register the ModelAdmin with name of  CustomUserChangeAdmin
+    13. restart the server.
+    14.  Now if we click on the username we will get an error.
+        FieldError at /admin/user/user/3/change/
+        Unknown field(s) (first_name, last_name) specified for User. Check fields/fieldsets/exclude
+        attributes of class CustomUserAdmin.
+    15. we have three way to get rid of this error.
+        set field/fieldsets.exclude attributes in the CustomUserAdmin, we will chose field sets.
+    16. what is Fieldsets: when we get our form then in the form all the field we getting are called field sets.
+        fieldsets = (
+        ('Personal Details', {'fields': ('email', 'full_name', 'username', 'picture')}), # fields we want to change through admin
+        ('Permissions', {'fields': ('is_staff', 'is_active')})
+    )
+    17. add_fieldsets to show # fields we need to fill while creating user through admin panel
+        add_fieldsets = (
+            ('Personal Details', {'fields': ('email', 'full_name', 'username', 'picture', 'password1', 'password2')}),
+            # fields we need to fill while creating user through admin panel
+            ('Permissions', {'fields': ('is_staff', 'is_active')})
+        )
+    18. restart the server.

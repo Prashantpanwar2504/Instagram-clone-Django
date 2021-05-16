@@ -25,4 +25,4 @@ class CustomUserManager(BaseUserManager):
             return ValueError(ugettext_lazy('The Superuser must have is_staff = True.'))
         if extra_fields.get('is_superuser') is not True:
             return ValueError(ugettext_lazy('The Superuser must have is_superuser = True.'))
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(email, password, username  **extra_fields)
