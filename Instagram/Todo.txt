@@ -302,3 +302,22 @@ Day 12: ModelAdmin register user model in the admin site.
             ('Permissions', {'fields': ('is_staff', 'is_active')})
         )
     18. restart the server.
+
+Day 13: Database Creation of the Project.
+    In Django we call one table = one model, one  column = one field
+    We are going to define model in core application cuz every functionality og the instagram is in Core application.
+
+    1. Posts table,
+        1. create Post model in the core application,
+        2. create required field like text, image, user etc.
+        3. import User model from get_user_model in models.py file of core application.
+        4. create a field for relation between User model and Post model.
+            user = models.ForeignKey(User)
+        5. pass on_dlt function in case of someone try to dlt the user.
+            user = models.ForeignKey(User, on_delete=models.PROTECT)
+        6. create two more column for creating post time and updating post time.
+            created_on = models.DateTimeField(auto_now_add=True)
+            updated_on = models.DateTimeField(auto_now=True)
+    2. Post_comments,
+    3. Post_likes,
+    4. User_followers,
