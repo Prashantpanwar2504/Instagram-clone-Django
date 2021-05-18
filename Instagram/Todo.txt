@@ -319,5 +319,41 @@ Day 13: Database Creation of the Project.
             created_on = models.DateTimeField(auto_now_add=True)
             updated_on = models.DateTimeField(auto_now=True)
     2. Post_comments,
+        1. create a Comment model in the core application.
+        2.create required fields,
+            class Comment(models.Model):
+                text = models.CharField(max_length=140)
+                post = models.ForeignKey(Post, on_delete=models.CASCADE)
+                user = models.ForeignKey(User, on_delete= models.CASCADE)
+                created_on = models.DateTimeField(auto_now_add=True)
+                updated_on = models.DateTimeField(auto_now=True)
     3. Post_likes,
+        1. create a Like model in the core application.
+        2. create required field for the likes.
+            class Like(models.Model):
+                post = models.ForeignKey(Post, on_delete=models.CASCADE)
+                user = models.ForeignKey(User, on_delete=models.CASCADE)
+                is_like = models.BooleanField(default=True)# this is sure when like object is created it's mean someone like the post
+                created_on = models.DateTimeField(auto_now_add=True)
+                updated_on = models.DateTimeField(auto_now=True)
     4. User_followers,
+        1. create a Follower model in core app,
+        2. create required field.
+            class Follow(models.Model):
+                user = models.ForeignKey(User, related_name='follow_user',  # Reverse Access Error
+                                 on_delete=models.CASCADE) # user_id
+                follower = models.ForeignKey(User, related_name='follow_follower',  # Reverse Access Error
+                                             on_delete=models.CASCADE) # follower_if
+                is_follow = models.BooleanField(default=True)
+                followed_on = models.DateTimeField(auto_now_add=True)
+                updated_on = models.DateTimeField(auto_now=True)
+    5. Provide the string representation to all the  model.
+    6. when we run the code we will ge t the error.
+        core.Follow.follower: (fields.E304) Reverse accessor for 'Follow.follower' clashes with reverse accessor for 'Follow.user'.
+
+        cuz we provide the same Foreignkey to two different column field in the models.py file Follow model
+    7. To get rid of this error we need to provide related_name to the column field.
+        user = models.ForeignKey(User, related_name='follow_user',  # Reverse Access Error
+                                 on_delete=models.CASCADE) # user_id
+        follower = models.ForeignKey(User, related_name='follow_follower',  # Reverse Access Error
+                                             on_delete=models.CASCADE) # follower_if
