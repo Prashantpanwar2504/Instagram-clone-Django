@@ -357,3 +357,30 @@ Day 13: Database Creation of the Project.
                                  on_delete=models.CASCADE) # user_id
         follower = models.ForeignKey(User, related_name='follow_follower',  # Reverse Access Error
                                              on_delete=models.CASCADE) # follower_if
+    8. make migrations for the created model in the core application.
+
+Day 14: creating post without selecting user automatically.
+    1. first thing we need to do is to update the user field of Post model, "editable = false".
+    2. crete a save method to save current user.
+    3. to get the current logged in user we will user the third party package, django-crum
+    4. added the MIDDLEWARE to our project setting.
+        MIDDLEWARE += ('crum.CurrentRequestUserMiddleware')
+    5. now override the save method to get the current logged in user
+        user = get_current_user()
+        if user and not user.pk:  # is their any user and don't have the primary key of the user then user ko None krdo.
+            user = None           # agr if condition nhi chalegi iska matlab current user be h and primary key be h.
+        if not self.pk:  # if Post model ke user field ki primary key nhi h to, post model ke user ko current user  assign krdo.
+            self.user = user
+        super(Post, self).save(*args, **kwargs)  # getting the save method of parent class with the help of super().
+    6. migrate the model.
+    7. now we can create the post with logged in user but again we can't see the user name .
+    8. to get rid of this pproblem we need to create PostModelAdmin which will help us to get the field we want to se on the
+    admin panel.
+    9. to do this first create a class PostModelAdmin with will inherit the admin.ModelAdmin
+    10. now we need to define the model we want to use
+    model = Post
+    11. create a list which will contain the field we want to show on the post panel.
+     list_display = ('text', 'image', 'user', 'created_on', 'updated_on')
+    12. same all thing and restrt the server.
+
+ Day 15: Now we nned to do this for every model like Comment, Follow, Like. this we will do tomarrow.
