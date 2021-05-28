@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from crum import  get_current_user
+from crum import get_current_user
 
 # Create your models here.
 
@@ -14,7 +14,8 @@ class Post(models.Model):
     text = models.TextField(max_length=140, blank=True, null=True)  # null = None / blank = ''
     image = models.ImageField(upload_to='post_images')  # Base_dir -> media -> post_images
     user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False)
-    posted_on = models.DateTimeField(auto_now_add=True)  # auto_now_add = True is for, when post is created then it will auto fill the time
+    posted_on = models.DateTimeField(
+        auto_now_add=True)  # auto_now_add = True is for, when post is created then it will auto fill the time
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):  # String representation
@@ -24,7 +25,7 @@ class Post(models.Model):
         # saved current logged in user
         user = get_current_user()  # getting the current logged in user.
         if user and not user.pk:  # is their any user and don't have the primary key of the user then user ko None krdo.
-            user = None           # agr if condition nhi chalegi iska matlab current user be h and primary key be h.
+            user = None  # agr if condition nhi chalegi iska matlab current user be h and primary key be h.
         if not self.pk:  # if Post model ke user field ki primary key nhi h to, post model ke user ko current user  assign krdo.
             self.user = user
         super(Post, self).save(*args, **kwargs)  # getting the save method of parent class with the help of super().
@@ -33,36 +34,68 @@ class Post(models.Model):
 # second model => post_comments model
 class Comment(models.Model):
     text = models.CharField(max_length=140)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)  # if user or admin or someone else dlt the post the the comment will automatically deleted.
-    user = models.ForeignKey(User, on_delete= models.CASCADE)  # if someone dlt the user then the all the comment wil we deleted.
+    post = models.ForeignKey(Post,
+                             on_delete=models.CASCADE)  # if user or admin or someone else dlt the post the the comment will automatically deleted.
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             editable=False)  # if someone dlt the user then the all the comment wil we deleted.
     commented_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    def __str__(self): # String representation
+    def __str__(self):  # String representation
         return self.text
+
+    def save(self, *args, **kwargs):
+        # saved current logged in user
+        user = get_current_user()  # getting the current logged in user who create a comment.
+        if user and not user.pk:  # is their any user and don't have the primary key of the user then user ko None krdo.
+            user = None  # agr if condition nhi chalegi iska matlab current user be h and primary key be h.
+        if not self.pk:  # if Post model ke user field ki primary key nhi h to, post model ke user ko current user  assign krdo.
+            self.user = user
+        super(Comment, self).save(*args, **kwargs)  # getting the save method of parent class with the help of super().
 
 
 # third model => post_like model
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    is_like = models.BooleanField(default=True) # this is sure when like object is created it's mean someone like the post
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+    is_like = models.BooleanField(
+        default=True)  # this is sure when like object is created it's mean someone like the post
     liked_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    def __str__(self): # String representation
+    def __str__(self):  # String representation
         return str(self.is_like)
+
+    def save(self, *args, **kwargs):
+        # saved current logged in user
+        user = get_current_user()  # getting the current logged in user who liked the post.
+        if user and not user.pk:  # is their any user and don't have the primary key of the user then user ko None krdo.
+            user = None  # agr if condition nhi chalegi iska matlab current user be h and primary key be h.
+        if not self.pk:  # if Post model ke user field ki primary key nhi h to, post model ke user ko current user  assign krdo.
+            self.user = user
+        super(Like, self).save(*args, **kwargs)  # getting the save method of parent class with the help of super().
 
 
 # fourth model => follower model
 class Follow(models.Model):
-    user = models.ForeignKey(User, related_name='follow_user',  # Reverse Access Error
-                             on_delete=models.CASCADE) # user_id
-    follower = models.ForeignKey(User, related_name='follow_follower',  # Reverse Access Error
-                                 on_delete=models.CASCADE) # follower_if
+    user = models.ForeignKey(User, related_name='follow_user',  # Reverse Access Error  # kisne Follow kiya
+                             on_delete=models.CASCADE, editable=False)  # user_id
+    # current user who follow other user
+    follower = models.ForeignKey(User, related_name='follow_follower',  # Reverse Access Error  # kisko follow kiya
+                                 on_delete=models.CASCADE)  # follower_id
+    # other user jisko current user na follow kia h.
     is_follow = models.BooleanField(default=True)
     followed_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    def __str__(self): # String representation
-        return f"{self.user} --> {self.follower}"   # if we want to represent multiple field
+    def __str__(self):  # String representation
+        return f"{self.user} --> {self.follower}"  # if we want to represent multiple field
+
+    def save(self, *args, **kwargs):
+        # saved current logged in user
+        user = get_current_user()  # getting the current logged in user who follow the other user.
+        if user and not user.pk:  # is their any user and don't have the primary key of the user then user ko None krdo.
+            user = None  # agr if condition nhi chalegi iska matlab current user be h and primary key be h.
+        if not self.pk:  # if Post model ke user field ki primary key nhi h to, post model ke user ko current user  assign krdo.
+            self.user = user
+        super(Follow, self).save(*args, **kwargs)  # getting the save method of parent class with the help of super().

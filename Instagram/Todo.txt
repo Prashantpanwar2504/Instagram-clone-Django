@@ -381,6 +381,14 @@ Day 14: creating post without selecting user automatically.
     model = Post
     11. create a list which will contain the field we want to show on the post panel.
      list_display = ('text', 'image', 'user', 'created_on', 'updated_on')
-    12. same all thing and restrt the server.
+    12. same all thing and restart the server.
 
- Day 15: Now we nned to do this for every model like Comment, Follow, Like. this we will do tomarrow.
+ Day 15: Now we need to do this for every model like Comment, Follow, Like. this we will do tomorrow.
+    Note: make editable = False to all the user.
+    1. creating model Admin for the other model.
+    2. get the current logged in user for comment, like model cuz we want to know who commented and liked our post.
+    3. now to get the name of the user who follow some one, we need to get the current loggedin user,
+    use the common sence for this.
+    4. now we need get the user whom the current user follow.
+    5. this we will do in front end.
+    6. migrate the database.
