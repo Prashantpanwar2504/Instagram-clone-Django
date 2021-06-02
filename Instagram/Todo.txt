@@ -392,3 +392,5 @@ Day 14: creating post without selecting user automatically.
     4. now we need get the user whom the current user follow.
     5. this we will do in front end.
     6. migrate the database.
+
+ Day 16:

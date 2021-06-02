@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
-from core.views import (
-    HomeView,
+from user.views import (
+    ProfileView,
 )
 
 urlpatterns = [
-    path('feed/', login_required(HomeView.as_view()), name='home_feed_view'),
+    path('<str:username>/', login_required(ProfileView.as_view()), name='profile_view'),
 
 ]

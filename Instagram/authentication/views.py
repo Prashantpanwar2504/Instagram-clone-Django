@@ -17,7 +17,7 @@ class SignInView(View):
     def get(self, request, *args, **kwargs):
         # always remember request object always have the instance of user, which is currently loggedin.
         if request.user.is_authenticated:
-            return redirect('home_feed')
+            return redirect('home_feed_view')
 
         return render(request, self.template_name)
 
@@ -60,7 +60,7 @@ class SignInView(View):
 
         login(request, user)
         messages.success(request, "Login Successfully, Welcome to Instagram Clone.", extra_tags="success")
-        return redirect('home_feed')
+        return redirect('home_feed_view')
 
 
 class SignUpView(View):
@@ -70,7 +70,7 @@ class SignUpView(View):
     def get(self, request, *args, **kwargs):
         # always remember request object always have the instance of user, which is currently loggedin.
         if request.user.is_authenticated:
-            return redirect('home_feed')
+            return redirect('home_feed_view')
 
         return render(request, self.template_name)
 
