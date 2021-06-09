@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication.apps.AuthenticationConfig',
-    'common.apps.CommonConfig',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
 ]
@@ -120,6 +119,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR/'static_files', ]
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'MEDIA'
 
 AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = 'signin_view'

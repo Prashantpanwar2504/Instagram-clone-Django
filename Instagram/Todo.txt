@@ -393,4 +393,5 @@ Day 14: creating post without selecting user automatically.
     5. this we will do in front end.
     6. migrate the database.
 
- Day 16: Profile View
+ Day 16: Profile View today we are going to work on the profile view;
+
