@@ -388,10 +388,72 @@ Day 14: creating post without selecting user automatically.
     1. creating model Admin for the other model.
     2. get the current logged in user for comment, like model cuz we want to know who commented and liked our post.
     3. now to get the name of the user who follow some one, we need to get the current loggedin user,
-    use the common sence for this.
+    use the common sense for this.
     4. now we need get the user whom the current user follow.
     5. this we will do in front end.
     6. migrate the database.
 
  Day 16: Profile View today we are going to work on the profile view;
+    1. when we click on the profile page buttom we are getting an error.
+    2. Error page not found.
+    3. now we need to create url in the urls.py file of user application for profile_view
+    4. But in thi case our normalurl for profile view will not work.
+        cuz in real url we get https://www.instagram.com/this_is_prashant_panwar/
+    5. For this first we need to convert the Django url into Dynamic url
+        to do this:
+        path('<str:username>', login_required(profile_view.as_view(), name = 'Profile_view')
+    6. Now include user url into our root project url in the instagram/urls.py.
+        we will get an error:connot import name 'profile_view'
+        this is cuz we don't create the profile_view yet.
+    7.create a profile view in the user/view.py file of user application
+    8. define templates, define get methos, and then return(render to template)
+    9. Now we ned to put the url of profileview into the navbar.html
+    in the nav.html create a dynamic url for profile
+        {% url: 'profile_view' %}
+    10. we will gweta n error.
+    Reverse for 'profile_view' with no argument not found, 1 pattern(s) tried:['(p<urername)']
+    now we need to catch the user and pass to  url in the nav.html
+    {% url:'profile_view', request.user.username %}
+    11. now we will get an error
+        get() got an unexpected keyword argument 'username'
+        actully what happen we pass the username to the url but did not catch in our view to do that
+        in the profile view in the vies.py file pass request in the get mathod so that get request can have the user object.
+            'def get(self, request, *arg, **kwarg)'
+    12. th the profile.html  we provide some dynamic url so coorect them.
+    13. making the username, fullname, profilename Dynamic.
+        {{ request.user.full_name }} etc
+    14. now we can not see the profile now cuzthe scr of the picture is unknow right know
+    15.go to admin and set a profile imge
+    16. but yet we are abb=le to show the profile
+    17. to show/serve the profile we need to define the url gor it.
 
+ Day 17: Showing the profile on the profile page.
+    1. copy the template and the static files and paste them into the project and delete the commom application,
+     we donn't need common application in our project
+    2. Restart the server
+        when we click on the profile we will get the error[templates doesn't exist user/profile.html]
+        we are getting this error cuz we didin't provide any templates.
+    3. Now we copy the new template and we have two templates
+        1. anonymous_profile.html(for other user)
+        2. authentication_profile.html
+    4. now in the views.py file profile_view we need to create two template_name
+        template_nae_anom = user.anonymous.html
+        template_nae_auth = user.authenticated.html
+    5. render template_name_auth.
+    6. ProfileImage:
+        in the authenticated_profile.html in the profile section
+        in the image src="{{ request.user.profile.url }}"
+    7.in django when ever we want to show any media file we have to call .url with it.
+    8. in the settings.py file our media fike is not able to serve in the project.
+    9. djngp by default serve the static_ile, we have to write the lgic to serve the media file.
+    10.go to setting and creat a mediaroot
+    MEDI_ROOT = BASIC_DIR/'media'/
+    11 now we need to generate the url forthe profile for this go to the main project url
+        add a new url_pattern
+        urlpattern.extend(
+        static(settings.MEDIA_URL, documnentt_root = setting.MEDIA_ROOT))
+        import static and settings in the urls.py of instagram
+    12.from django.config.url.static import static
+        from django.config import settings
+     13. delete the profilepicture folder and again ulpoad the profile through admin section
+    14. it will create a new folder for profile called MEDIA
