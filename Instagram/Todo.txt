@@ -456,4 +456,6 @@ Day 14: creating post without selecting user automatically.
     12.from django.config.url.static import static
         from django.config import settings
      13. delete the profilepicture folder and again ulpoad the profile through admin section
-    14. it will create a new folder for profile called MEDIA
+    14. it will create a new folder for profile called MEDIA.
+
+ Day 18:

@@ -22,12 +22,16 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         ('Personal Details', {'fields': ('email', 'full_name', 'username', 'picture', 'password1', 'password2')}),
         # fields we need to fill while creating user through admin panel
-        ('Permissions', {'fields': ('is_staff', 'is_active')})
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Optional', {'fields': ('bio', 'website')}),
+
     )
     # Creating the fieldsets
     fieldsets = (
         ('Personal Details', {'fields': ('email', 'full_name', 'username', 'picture')}), # fields we want to show or change on admin panel
-        ('Permissions', {'fields': ('is_staff', 'is_active')})
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Optional', {'fields': ('bio', 'website')}),
+
     )
 
 

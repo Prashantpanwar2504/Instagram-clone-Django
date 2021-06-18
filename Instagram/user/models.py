@@ -11,6 +11,11 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=150) # by default null and blank are false for username and email
     email = models.EmailField(unique=True)
 
+
+    # optional field
+    bio = models.TextField(null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+
     # Removing first and the last name from the user model.
     first_name = None
     last_name = None
