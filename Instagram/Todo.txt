@@ -458,5 +458,4 @@ Day 14: creating post without selecting user automatically.
      13. delete the profilepicture folder and again ulpoad the profile through admin section
     14. it will create a new folder for profile called MEDIA.
 
- Day 18: testing changes
-lrlo
+ Day 18:
