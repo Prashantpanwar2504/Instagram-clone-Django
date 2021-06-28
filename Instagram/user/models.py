@@ -2,7 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from user.managers import CustomUserManager
 
-
+GENDER_CHOICES = [
+    ('M', 'male'),
+    ('F', 'female'),
+    ('None', 'prefer not to say'),
+]
 # Create your models here.
 
 class User(AbstractUser):
@@ -15,6 +19,10 @@ class User(AbstractUser):
     # optional field
     bio = models.TextField(null=True, blank=True)
     website = models.URLField(null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
+    is_private_account = models.BooleanField(null=True, blank=True)
+
 
     # Removing first and the last name from the user model.
     first_name = None
